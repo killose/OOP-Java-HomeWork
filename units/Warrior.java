@@ -1,10 +1,16 @@
+package units;
+
+import java.util.ArrayList;
+
 public class Warrior extends Character{
-    public Warrior() {
+    public Warrior(String name, int X, int Y) {
+        super(name, X, Y);
         health = 100;
         speed = 10;
         strength = 20;
         agility = 5;
         intelligence = 5;
+        initiative = 3;
     }
 
     public void attack() {
@@ -24,12 +30,12 @@ public class Warrior extends Character{
     }
 
     @Override
-    public void step() {
-       System.out.println("Шаг вперёд!");
+    public void step(ArrayList<Character> team_blue, ArrayList<Character> team_red) {
+    //    System.out.println("Шаг вперёд!");
     }
-    @Override
-    public String getInfo() {
-        String s = getClass().getName();
-        return s;
-    }
+    // @Override
+    // public String getInfo() {
+    //     String s = getClass().getName();
+    //     return s;
+    // }
 }

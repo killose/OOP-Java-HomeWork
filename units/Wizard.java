@@ -1,10 +1,16 @@
+package units;
+
+import java.util.ArrayList;
+
 public class Wizard extends Character {
-    public Wizard() {
+    public Wizard(String name,int X, int Y) {
+        super(name, X, Y);
         health = 60;
         speed = 10;
         strength = 5;
         agility = 5;
         intelligence = 30;
+        initiative = 1;
     }
 
     public void attack() {
@@ -23,13 +29,14 @@ public class Wizard extends Character {
         return intelligence;
     }
 
-    @Override
-    public String getInfo() {
-        String s = getClass().getName();
-        return s;
-    }
+    // @Override
+    // public String getInfo() {
+    //     String s = getClass().getName();
+    //     return s;
+    // }
 
     @Override
-    public void step() {
+    public void step(ArrayList<Character> team_blue, ArrayList<Character> team_red) {
+
     }
 }

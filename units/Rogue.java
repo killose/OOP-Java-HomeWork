@@ -1,10 +1,16 @@
+package units;
+
+import java.util.ArrayList;
+
 public class Rogue extends Character {
-    public Rogue() {
+    public Rogue(String name, int X, int Y) {
+        super(name, X, Y);
         health = 70;
         speed = 20;
         strength = 10;
         agility = 15;
         intelligence = 5;
+        initiative = 4;
     }
 
     public void attack() {
@@ -24,12 +30,13 @@ public class Rogue extends Character {
     }
 
     @Override
-    public void step() {
+    public void step(ArrayList<Character> team_blue, ArrayList<Character> team_red) {
+
     }
 
-    @Override
-    public String getInfo() {
-        String s = getClass().getName();
-        return s;
-    }
+    // @Override
+    // public String getInfo() {
+    //     String s = getClass().getName();
+    //     return s;
+    // }
 }
