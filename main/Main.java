@@ -1,5 +1,8 @@
+package main;
+
 import units.*;
 import units.Character;
+import views.View;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -7,6 +10,9 @@ import java.util.Comparator;
 
 
 public class Main {
+    public static final String teamAll = null;
+    public static Object team_blue;
+
     public static void main(String[] args) {
 
  
@@ -26,9 +32,9 @@ public class Main {
             }
         });
 
-        printInfo(team_blue);
-        printInfo(team_red);
-        System.out.println("_".repeat(20));
+        // printInfo(team_blue);
+        // printInfo(team_red);
+        // System.out.println("_".repeat(20));
 
 
         for (Character p: teamAll) {
@@ -39,9 +45,12 @@ public class Main {
             }
         }
 
-        System.out.println("Получивший урон Пётр");
-        printInfo(team_blue);
-        printInfo(team_red);
+        View.view();
+        // in.nextLine();
+
+        // System.out.println("Получивший урон Пётр");
+        // printInfo(team_blue);
+        // printInfo(team_red);
 
         // for (Character character : teamAll) {
         //     character.printStats();
@@ -57,16 +66,16 @@ public class Main {
                 int val = rand.nextInt(4);
                 switch (val) {
                     case 0:
-                        team.add(new Warrior("Алекандр",2,3 ));
+                        team.add(new Warrior("Алекандр",10,i ));
                         break;
                     case 1:
-                        team.add(new Ranger("Пётр",0,4));
+                        team.add(new Ranger("Пётр",10,i));
                         break;
                     case 2:
-                        team.add(new Rogue("Григорий",0,1));
+                        team.add(new Rogue("Григорий",10,i));
                         break;
                     default:
-                        team.add(new Wizard("Алексей",1,1));
+                        team.add(new Wizard("Алексей",10,i));
                         break;
                 }
             }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Rogue extends Character {
     public Rogue(String name, int X, int Y) {
         super(name, X, Y);
-        health = 70;
+        curHealth = 70;
         speed = 20;
         strength = 10;
         agility = 15;

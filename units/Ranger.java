@@ -9,7 +9,7 @@ public class Ranger extends Character{
     public Ranger(String name, int X, int Y) {
         super(name, X, Y);
         this.countArrow = 10;
-        health = 80;
+        curHealth = 80;
         speed = 15;
         strength = 10;
         agility = 20;
@@ -35,16 +35,24 @@ public class Ranger extends Character{
 
     @Override
     public void step(ArrayList<Character> team_blue, ArrayList<Character> team_red) {
-        if (this.health == 0) return;
+        if (this.curHealth == 0) return;
         if (this.countArrow == 0) return;
 
         int k = super.findNearest(team_blue);
-        team_blue.get(k).health -= (this.getAttackPower()/2);
+        team_blue.get(k).getDamage((this.getAttackPower()+this.getAttackPower())/2);
 
-        for (int i = 0; i < team_red.size(); i++) {
-            if (team_red.get(i).getClass().equals("Warrior")) return;
+        for (int i = 0; i < team_blue.size(); i++){
+            if (team_blue.get(i).getClass().getSimpleName().equals("Farmer") && team_blue.get(i).status.equals("Stand")) {
+                team_blue.get(i).status = "busy";
+                return;
+            }
         }
         this.countArrow -= 1;
+    }
+
+    @Override
+    public String getInfo() {
+        return String.format("%s \u27B3: %s",super.getInfo(),this.countArrow);
     }
 
     // @Override

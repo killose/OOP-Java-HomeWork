@@ -1,9 +1,12 @@
 package units;
 import java.util.ArrayList;
 
+import org.w3c.dom.html.HTMLTableCaptionElement;
+
 public abstract class Character implements myInterface{
     public static final char[] printStats = null;
-    protected int health;
+    protected int maxHealth;
+    protected int curHealth;
     protected int speed;
     protected int strength;
     protected int agility;
@@ -11,6 +14,7 @@ public abstract class Character implements myInterface{
     public Coordinates coordinates;
     protected String name;
     public int initiative;
+    protected String status;
 
     public abstract void attack();
     public abstract void defend();
@@ -19,17 +23,18 @@ public abstract class Character implements myInterface{
     public Character(String name, int X, int Y) {
         this.name = name;
         this.coordinates = new Coordinates(X, Y);
-
+        this.status = "Stand";
+        this.maxHealth = 200;
     }
 
     public int findNearest(ArrayList<Character> team_blue){
         
-                double minR = Coordinates.Rastoynie(coordinates.X, team_blue.get(0).coordinates.X,coordinates.Y,
+                double minR = Coordinates.rastoynie(coordinates.X, team_blue.get(0).coordinates.X,coordinates.Y,
                         team_blue.get(0).coordinates.Y);
                 int k = 0;
         
                 for (int i = 1; i < 10; i++) {
-                    double R = Coordinates.Rastoynie(coordinates.X, team_blue.get(i).coordinates.X,coordinates.Y,
+                    double R = Coordinates.rastoynie(coordinates.X, team_blue.get(i).coordinates.X,coordinates.Y,
                             team_blue.get(i).coordinates.Y);
                     if(R<minR) {
                         minR = R;
@@ -43,7 +48,7 @@ public abstract class Character implements myInterface{
 
     @Override
     public String getInfo() {
-        return getClass().getName() + " "+name+" "+ health;
+        return getClass().getName() + " "+name+" "+ curHealth;
     }
 
     // public String getName() {
@@ -54,7 +59,7 @@ public abstract class Character implements myInterface{
     public void printStats() {
         System.out.println(getClass().getSimpleName() + ":");
         System.out.println("Имя: " + name);
-        System.out.println("Здоровье: " + health);
+        System.out.println("Здоровье: " + curHealth);
         System.out.println("Скорость: " + speed);
         System.out.println("Сила: " + strength);
         System.out.println("Ловкость: " + agility);
@@ -62,49 +67,35 @@ public abstract class Character implements myInterface{
     }
   
 
-    // Редактирование статистик персонажа
-
-    // public void increaseHealth(int amount) {
-    //     health += amount;
-    // }
-
-    // public void decreaseHealth(int amount) {
-    //     health -= amount;
-    // }
-
-    // public void increaseSpeed(int amount) {
-    //     speed += amount;
-    // }
-
-    // public void decreaseSpeed(int amount) {
-    //     speed -= amount;
-    // }
-
-    // public void increaseStrength(int amount) {
-    //     strength += amount;
-    // }
-
-    // public void decreaseStrength(int amount) {
-    //     strength -= amount;
-    // }
-
-    // public void increaseAgility(int amount) {
-    //     agility += amount;
-    // }
-
-    // public void decreaseAgility(int amount) {
-    //     agility -= amount;
-    // }
-
-    // public void increaseIntelligence(int amount) {
-    //     intelligence += amount;
-    // }
-
-    // public void decreaseIntelligence(int amount) {
-    //     intelligence -= amount;
-    // }
-
     public abstract int getAttackPower();
+
+    protected void getDamage(int damage) {
+        curHealth -= damage;
+        if (curHealth <= 0) {
+            this.status = "dead";
+            curHealth = 0;
+        }
+        if (this.curHealth > this.maxHealth) {
+            this.curHealth = this.maxHealth;
+        }
+    }
+
+    public boolean daad(){
+        return this.status.equals("dead");
+    }
+
+    public int[] getCoords(){
+        int[] coord = new int[2];
+        coord[0] = this.coordinates.X;
+        coord[1] = this.coordinates.Y;
+
+        return coord;
+    }
+  
+
+    public float getHp(){
+        return this.curHealth;
+    }
 
     public void attack(Character target) {
         int damage = getAttackPower();
@@ -113,13 +104,7 @@ public abstract class Character implements myInterface{
     }
 
     public void takeDamage(int damage) {
-        health -= damage;
-        System.out.println(getClass().getSimpleName() + " получает " + damage + " урона и остается с " + health + " здоровья");
+        curHealth -= damage;
+        System.out.println(getClass().getSimpleName() + " получает " + damage + " урона и остается с " + curHealth + " здоровья");
     }
-    public Character get(Character character) {
-        return null;
-    }
-
-  
-
 }
